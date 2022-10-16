@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
+import Button from "./components/Button/Button";
 import Graph from "./components/Graph/Graph";
 import TextInput from "./components/TextInput/TextInput";
 import "./index.css";
@@ -8,6 +9,10 @@ function App() {
 
   const handleTextAreaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setTextAreaValue(event.target.value);
+  };
+
+  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
   };
 
   return (
@@ -28,6 +33,7 @@ function App() {
             rows={5}
             cols={30}
           />
+          <Button title="Submit" onClick={handleSubmit} />
         </section>
         <aside className="bg-pink-100">
           <Graph />
