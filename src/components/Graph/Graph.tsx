@@ -8,7 +8,7 @@ const chartOptions = {
   },
   credits: { enabled: false },
   title: {
-    text: "Title goes here",
+    text: "Graph Data",
   },
   xAxis: {
     categories: ["Cat1", "Cat2"],

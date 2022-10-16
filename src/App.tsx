@@ -18,7 +18,7 @@ function App() {
   return (
     <div className="m-20 w-full md:w-3/4 lg:w-1/2">
       <div className="flex flex-row justify-between">
-        <section className="bg-yellow-100">
+        <section className="mb-12 p-4 bg-slate-100 border border-gray-200 rounded-md">
           <p className="text-blue-600 font-bold">What do you think of this?</p>
           <p>StarRatingComponent</p>
           <TextInput id="name" placeholder="Name" />
@@ -39,7 +39,13 @@ function App() {
           <Graph />
         </aside>
       </div>
-      <section className="bg-green-100">Latests comments box</section>
+      <section className="p-4 bg-slate-100 border border-gray-200 rounded-md">
+        <ul>
+          {["comment 1", "comment 2", "comment 3"].map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
+      </section>
     </div>
   );
 }
