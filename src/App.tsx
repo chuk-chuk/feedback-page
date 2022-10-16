@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
+import Graph from "./components/Graph/Graph";
 import TextInput from "./components/TextInput/TextInput";
 import "./index.css";
 
@@ -28,7 +29,9 @@ function App() {
             cols={30}
           />
         </section>
-        <aside className="bg-pink-100">Graph container</aside>
+        <aside className="bg-pink-100">
+          <Graph />
+        </aside>
       </div>
       <section className="bg-green-100">Latests comments box</section>
     </div>
