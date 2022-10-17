@@ -1,7 +1,5 @@
-import { ChangeEvent, TextareaHTMLAttributes } from "react";
+import { TextareaHTMLAttributes } from "react";
 
 export type BoxInputProps = {
   id: string;
-  textValue: string;
-  handleOnChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
 } & TextareaHTMLAttributes<HTMLTextAreaElement>;

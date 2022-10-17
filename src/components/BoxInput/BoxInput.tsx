@@ -2,7 +2,7 @@ import React from "react";
 import { BoxInputProps } from "./BoxInput.types";
 
 function BoxInput(props: BoxInputProps) {
-  const { id, textValue, handleOnChange, ...rest } = props;
+  const { id, ...rest } = props;
 
   return (
     <div>
@@ -11,11 +11,7 @@ function BoxInput(props: BoxInputProps) {
       </label>
       <textarea
         id={id}
-        className="border border-gray-300"
-        value={textValue}
-        onChange={handleOnChange}
-        rows={5}
-        cols={30}
+        className="pl-1 my-1 border rounded border-gray-300"
         {...rest}
       />
     </div>

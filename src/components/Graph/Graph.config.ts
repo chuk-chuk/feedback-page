@@ -4,9 +4,7 @@ export const getChartOptions = (series: number[]) => {
       type: "column",
     },
     credits: { enabled: false },
-    accessibility: {
-      description: "This is the most used desktop screen reader",
-    },
+    accessibility: { enabled: false },
     title: {
       text: "",
     },
