@@ -5,15 +5,19 @@ import Button from "./components/Button/Button";
 import Graph from "./components/Graph/Graph";
 import BoxInput from "./components/BoxInput/BoxInput";
 import TextInput from "./components/TextInput/TextInput";
-import { Comment } from "./App.types";
-import "./index.css";
 import ValidationMessage from "./components/ValidationMessage/ValidationMessage";
+import { Comment } from "./App.types";
+import { mappedGraphData } from "./App.helpers";
+import "./index.css";
 
 const validationSchema: yup.SchemaOf<Comment> = yup.object().shape({
   name: yup.string().required("Name is required"),
-  email: yup.string().required("Email is required"),
   comment: yup.string().required("Leave your comment please"),
   rating: yup.number().required(),
+  email: yup
+    .string()
+    .email("Enter a valid email")
+    .required("Email is required"),
 });
 
 const initialValues: Comment = {
@@ -27,9 +31,19 @@ function App() {
   const [comments, setComments] = useState<Comment[]>([]);
   const [rating, setRating] = useState(0);
 
+  let categoriesData: string[] = [];
+  let numberOfPeople: number[] = [];
+
+  const data = mappedGraphData(comments);
+
+  Object.entries(data).forEach(([keyRating, data]) => {
+    categoriesData.push(keyRating);
+    numberOfPeople.push(data.length);
+  });
+
   return (
     <div className="m-10 w-full md:w-3/4 lg:w-1/2">
-      <div className="mb-12 flex gap-8 justify-between">
+      <div className="mb-12 flex justify-between">
         <div className="p-4 bg-slate-100 border border-gray-200 rounded-md">
           <Formik
             initialValues={initialValues}
@@ -45,11 +59,13 @@ function App() {
               handleChange,
               handleBlur,
               setFieldValue,
+              isSubmitting,
+              isValid,
               errors,
               touched,
             }: FormikProps<Comment>) => (
               <Form>
-                <div className="mb-4">
+                <div className="mb-6">
                   <p className="text-blue-600 font-bold">
                     What do you think of this?
                   </p>
@@ -68,7 +84,7 @@ function App() {
                           handleChange(event);
                         }}
                       >
-                        <span>&#9733;</span>
+                        <span id="star">&#9733;</span>
                       </button>
                     );
                   })}
@@ -76,7 +92,7 @@ function App() {
                 <TextInput
                   id="name"
                   name="name"
-                  placeholder="Name"
+                  label="Name"
                   value={values.name}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -90,10 +106,10 @@ function App() {
                 <TextInput
                   id="email"
                   name="email"
+                  label="Email"
                   value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  placeholder="Email"
                   inputClassName="mb-6"
                 />
                 {errors.email && touched.email && (
@@ -103,6 +119,7 @@ function App() {
                 )}
                 <BoxInput
                   id="comment"
+                  name="comment"
                   rows={5}
                   cols={30}
                   value={values.comment}
@@ -115,7 +132,11 @@ function App() {
                     {errors.comment}
                   </ValidationMessage>
                 )}
-                <Button type="submit" title="Submit" />
+                <Button
+                  type="submit"
+                  title="Submit"
+                  disabled={!isValid || isSubmitting || rating === 0}
+                />
               </Form>
             )}
           </Formik>
@@ -126,7 +147,7 @@ function App() {
               No data to display
             </ValidationMessage>
           ) : (
-            <Graph graphData={[1, 2, 3, 4, 5]} />
+            <Graph graphData={numberOfPeople} categories={categoriesData} />
           )}
         </aside>
       </div>
