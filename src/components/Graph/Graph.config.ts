@@ -1,4 +1,12 @@
-export const getChartOptions = (series: number[]) => {
+const map: Record<string, string> = {
+  "1": "⭐️",
+  "2": "⭐️⭐️",
+  "3": "⭐️⭐️⭐️",
+  "4": "⭐️⭐️⭐️⭐️",
+  "5": "⭐️⭐️⭐️⭐️⭐️",
+};
+
+export const getChartOptions = (series: number[], categories: string[]) => {
   return {
     chart: {
       type: "column",
@@ -9,16 +17,10 @@ export const getChartOptions = (series: number[]) => {
       text: "",
     },
     subtitle: {
-      text: "Graph",
+      text: "Review monitoring",
     },
     xAxis: {
-      categories: [
-        "⭐️",
-        "⭐️⭐️",
-        "⭐️⭐️⭐️",
-        "⭐️⭐️⭐️⭐️",
-        "⭐️⭐️⭐️⭐️⭐️",
-      ],
+      categories: categories.map((cat) => map[cat]),
       crosshair: true,
     },
     yAxis: {
@@ -30,13 +32,13 @@ export const getChartOptions = (series: number[]) => {
       headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
       pointFormat:
         '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-        '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+        '<td style="padding:0"><b>{point.y}</b></td></tr>',
       footerFormat: "</table>",
       useHTML: true,
     },
     series: [
       {
-        name: "Number of reviews",
+        name: "Ratings",
         data: series,
       },
     ],

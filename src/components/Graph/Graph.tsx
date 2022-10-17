@@ -3,8 +3,14 @@ import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { getChartOptions } from "./Graph.config";
 
-function Graph({ graphData }: { graphData: number[] }) {
-  const chartOptions = getChartOptions(graphData);
+function Graph({
+  graphData,
+  categories,
+}: {
+  graphData: number[];
+  categories: string[];
+}) {
+  const chartOptions = getChartOptions(graphData, categories);
 
   return (
     <div>
