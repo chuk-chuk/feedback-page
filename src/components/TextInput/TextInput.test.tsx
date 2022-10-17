@@ -4,8 +4,8 @@ import TextInput from "./TextInput";
 
 describe("TextInput", () => {
   it("renders a component", () => {
-    render(<TextInput id="name" placeholder="Name" />);
-    const placeholderText = screen.getByPlaceholderText("Name");
+    render(<TextInput id="name" label="Name" placeholder="Name" />);
+    const placeholderText = screen.getByText("Name");
     expect(placeholderText).toBeInTheDocument();
   });
 });

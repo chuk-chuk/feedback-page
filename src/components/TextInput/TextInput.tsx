@@ -1,9 +1,12 @@
 import React from "react";
 import { TextInputProps } from "./TextInput.types";
 
-function TextInput({ id, inputClassName, ...rest }: TextInputProps) {
+function TextInput({ id, label, inputClassName, ...rest }: TextInputProps) {
   return (
-    <div className="flex justify-left">
+    <div className="flex flex-col justify-left">
+      <label htmlFor={id} className="text-gray-500">
+        {label}
+      </label>
       <input
         name={id}
         id={id}
