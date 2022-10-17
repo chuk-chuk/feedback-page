@@ -5,7 +5,7 @@ function BoxInput(props: BoxInputProps) {
   const { id, ...rest } = props;
 
   return (
-    <div>
+    <div className="flex flex-col">
       <label htmlFor={id} className="text-blue-600 font-bold">
         Please give up more details below
       </label>
