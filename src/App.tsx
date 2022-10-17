@@ -2,10 +2,25 @@ import React, { ChangeEvent, useState } from "react";
 import Button from "./components/Button/Button";
 import Graph from "./components/Graph/Graph";
 import StarRating from "./components/StarRating/StarRating";
+import BoxInput from "./components/BoxInput/BoxInput";
 import TextInput from "./components/TextInput/TextInput";
+import { Comment } from "./App.types";
 import "./index.css";
 
-const mockedComments = ["comment 1", "comment 2", "comment 3"];
+const mockedComments: Comment[] = [
+  {
+    name: "Anna",
+    email: "anna@gmail.com",
+    rating: 5,
+    comment: "Great content",
+  },
+  {
+    name: "Tom",
+    email: "tom@gmail.com",
+    rating: 1,
+    comment: "Can be better",
+  },
+];
 
 function App() {
   const [comments, setComments] = useState<Comment[]>([]);
@@ -23,19 +38,13 @@ function App() {
     <div className="m-20 w-full md:w-3/4 lg:w-1/2">
       <div className="flex flex-row justify-between">
         <section className="mb-12 p-4 bg-slate-100 border border-gray-200 rounded-md">
-          <p className="text-blue-600 font-bold">What do you think of this?</p>
           <StarRating />
-          <TextInput id="name" placeholder="Name" />
-          <TextInput id="email" placeholder="Email" />
-          <p className="text-blue-600 font-bold">
-            Please give up more details below
-          </p>
-          <textarea
-            className="border border-gray-300"
-            value={textAreaValue}
-            onChange={handleTextAreaChange}
-            rows={5}
-            cols={30}
+          <TextInput id="name" placeholder="Name" inputClassName="mb-2" />
+          <TextInput id="email" placeholder="Email" inputClassName="mb-4" />
+          <BoxInput
+            id="comment"
+            textValue={textAreaValue}
+            handleOnChange={handleTextAreaChange}
           />
           <Button title="Submit" onClick={handleSubmit} />
         </section>
@@ -46,7 +55,7 @@ function App() {
       <section className="p-4 bg-slate-100 border border-gray-200 rounded-md">
         <ul>
           {mockedComments.map((item, index) => (
-            <li key={index}>{item}</li>
+            <li key={index}>{item.comment}</li>
           ))}
         </ul>
       </section>

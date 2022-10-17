@@ -5,6 +5,7 @@ function StarRating() {
 
   return (
     <div className="mb-4">
+      <p className="text-blue-600 font-bold">What do you think of this?</p>
       {[...Array(5)].map((_, index) => {
         index += 1;
         return (
