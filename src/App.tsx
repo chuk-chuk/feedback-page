@@ -3,7 +3,6 @@ import { Formik, FormikProps, Form } from "formik";
 import * as yup from "yup";
 import Button from "./components/Button/Button";
 import Graph from "./components/Graph/Graph";
-import StarRating from "./components/StarRating/StarRating";
 import BoxInput from "./components/BoxInput/BoxInput";
 import TextInput from "./components/TextInput/TextInput";
 import { Comment } from "./App.types";
@@ -26,6 +25,7 @@ const initialValues: Comment = {
 
 function App() {
   const [comments, setComments] = useState<Comment[]>([]);
+  const [rating, setRating] = useState(0);
 
   return (
     <div className="m-10 w-full md:w-3/4 lg:w-1/2">
@@ -37,17 +37,42 @@ function App() {
             onSubmit={(values, { resetForm }) => {
               setComments([...comments, values]);
               resetForm();
+              setRating(0);
             }}
           >
             {({
               values,
               handleChange,
               handleBlur,
+              setFieldValue,
               errors,
               touched,
             }: FormikProps<Comment>) => (
               <Form>
-                <StarRating />
+                <div className="mb-4">
+                  <p className="text-blue-600 font-bold">
+                    What do you think of this?
+                  </p>
+                  {[...Array(5)].map((_, index) => {
+                    index += 1;
+                    return (
+                      <button
+                        type="button"
+                        key={index}
+                        className={`cursor-pointer ${
+                          index <= rating ? "text-yellow-500" : "text-gray-400"
+                        }`}
+                        onClick={(event) => {
+                          setRating(index);
+                          setFieldValue("rating", index);
+                          handleChange(event);
+                        }}
+                      >
+                        <span>&#9733;</span>
+                      </button>
+                    );
+                  })}
+                </div>
                 <TextInput
                   id="name"
                   name="name"
@@ -69,7 +94,7 @@ function App() {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   placeholder="Email"
-                  inputClassName="mb-4"
+                  inputClassName="mb-6"
                 />
                 {errors.email && touched.email && (
                   <ValidationMessage type="error" className="mb-2">
