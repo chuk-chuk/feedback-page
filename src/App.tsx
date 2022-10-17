@@ -4,23 +4,8 @@ import Graph from "./components/Graph/Graph";
 import StarRating from "./components/StarRating/StarRating";
 import BoxInput from "./components/BoxInput/BoxInput";
 import TextInput from "./components/TextInput/TextInput";
-import { Comment } from "./App.types";
+import { mockedComments } from "./App.helpers";
 import "./index.css";
-
-const mockedComments: Comment[] = [
-  {
-    name: "Anna",
-    email: "anna@gmail.com",
-    rating: 5,
-    comment: "Great content",
-  },
-  {
-    name: "Tom",
-    email: "tom@gmail.com",
-    rating: 1,
-    comment: "Can be better",
-  },
-];
 
 function App() {
   const [comments, setComments] = useState<Comment[]>([]);
@@ -36,7 +21,7 @@ function App() {
 
   return (
     <div className="m-20 w-full md:w-3/4 lg:w-1/2">
-      <div className="flex flex-row justify-between">
+      <div className="flex gap-8 justify-between">
         <section className="mb-12 p-4 bg-slate-100 border border-gray-200 rounded-md">
           <StarRating />
           <TextInput id="name" placeholder="Name" inputClassName="mb-2" />
@@ -48,14 +33,16 @@ function App() {
           />
           <Button title="Submit" onClick={handleSubmit} />
         </section>
-        <aside className="bg-pink-100">
-          <Graph />
+        <aside>
+          <Graph graphData={[1, 2, 3, 4, 5]} />
         </aside>
       </div>
       <section className="p-4 bg-slate-100 border border-gray-200 rounded-md">
         <ul>
           {mockedComments.map((item, index) => (
-            <li key={index}>{item.comment}</li>
+            <li key={index}>
+              {item.comment} <span className="font-bold">by</span> {item.name}
+            </li>
           ))}
         </ul>
       </section>
