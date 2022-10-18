@@ -1,32 +1,28 @@
-const map: Record<string, string> = {
-  "1": "⭐️",
-  "2": "⭐️⭐️",
-  "3": "⭐️⭐️⭐️",
-  "4": "⭐️⭐️⭐️⭐️",
-  "5": "⭐️⭐️⭐️⭐️⭐️",
-};
+import { starsMap } from "../../App.helpers";
 
 export const getChartOptions = (series: number[], categories: string[]) => {
   return {
     chart: {
       type: "column",
+      width: 250,
     },
     credits: { enabled: false },
     accessibility: { enabled: false },
     title: {
-      text: "",
-    },
-    subtitle: {
       text: "Review monitoring",
     },
+    subtitle: {
+      text: "",
+    },
     xAxis: {
-      categories: categories.map((cat) => map[cat]),
+      categories: categories.map((cat) => starsMap[cat]),
       crosshair: true,
     },
     yAxis: {
       title: {
         text: "Number of people",
       },
+      tickInterval: 1,
     },
     tooltip: {
       headerFormat: '<span style="font-size:10px">{point.key}</span><table>',

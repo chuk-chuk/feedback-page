@@ -9,3 +9,11 @@ export const mappedGraphData = (inputArray: Comment[]) =>
     total[key].push(obj);
     return total;
   }, {});
+
+export const starsMap: Record<string, string> = {
+  "1": "⭐️",
+  "2": "⭐️⭐️",
+  "3": "⭐️⭐️⭐️",
+  "4": "⭐️⭐️⭐️⭐️",
+  "5": "⭐️⭐️⭐️⭐️⭐️",
+};

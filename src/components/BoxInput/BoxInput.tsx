@@ -11,7 +11,7 @@ function BoxInput(props: BoxInputProps) {
       </label>
       <textarea
         id={id}
-        className="pl-1 my-1 border rounded border-gray-300"
+        className="p-2 my-1 text-sm border rounded border-gray-300 mb-4"
         {...rest}
       />
     </div>

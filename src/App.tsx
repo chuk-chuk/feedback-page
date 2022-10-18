@@ -9,6 +9,7 @@ import ValidationMessage from "./components/ValidationMessage/ValidationMessage"
 import { Comment } from "./App.types";
 import { mappedGraphData } from "./App.helpers";
 import "./index.css";
+import CommentCard from "./components/CommentCard/CommentCard";
 
 const validationSchema: yup.SchemaOf<Comment> = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -42,9 +43,9 @@ function App() {
   });
 
   return (
-    <div className="m-10 w-full md:w-3/4 lg:w-1/2">
-      <div className="mb-12 flex justify-between">
-        <div className="p-4 bg-slate-100 border border-gray-200 rounded-md">
+    <div className="p-10 w-full flex flex-col items-center">
+      <div className="lg:w-1/2 md:w-full sm:w-full mb-10 flex md:justify-center lg:justify-center gap-4">
+        <div className="p-4 w-full bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -141,29 +142,25 @@ function App() {
             )}
           </Formik>
         </div>
-        <aside className="p-4 bg-slate-100 border border-gray-200 rounded-md">
-          {!comments.length ? (
-            <ValidationMessage type="custom">
-              No data to display
-            </ValidationMessage>
-          ) : (
+        {comments.length > 0 && (
+          <div className="px-4 pt-4 w-full bg-white border border-gray-200 rounded-md shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
             <Graph graphData={numberOfPeople} categories={categoriesData} />
-          )}
-        </aside>
-      </div>
-      <section className="p-4 bg-slate-100 border border-gray-200 rounded-md">
-        {!comments.length ? (
-          <ValidationMessage type="custom">No comments left.</ValidationMessage>
-        ) : (
-          <ul>
-            {comments.map((item, index) => (
-              <li key={index}>
-                {item.comment} <span className="font-bold">by</span> {item.name}
-              </li>
-            ))}
-          </ul>
+          </div>
         )}
-      </section>
+      </div>
+      <div className="lg:w-1/2 md:w-full sm:w-full flex items-center flex-col flex-wrap">
+        {!comments.length ? (
+          <ValidationMessage type="custom">
+            Be the first to leave a comment!
+          </ValidationMessage>
+        ) : (
+          <>
+            {comments.map((item, index) => (
+              <CommentCard card={item} key={index} />
+            ))}
+          </>
+        )}
+      </div>
     </div>
   );
 }
