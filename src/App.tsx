@@ -75,6 +75,7 @@ function App() {
                     return (
                       <button
                         type="button"
+                        data-testid={`star${index}`}
                         key={index}
                         className={`cursor-pointer ${
                           index <= rating ? "text-yellow-500" : "text-gray-400"
@@ -91,6 +92,7 @@ function App() {
                   })}
                 </div>
                 <TextInput
+                  data-testid="nameInput"
                   id="name"
                   name="name"
                   label="Name"
@@ -105,6 +107,7 @@ function App() {
                   </ValidationMessage>
                 )}
                 <TextInput
+                  data-testid="emailInput"
                   id="email"
                   name="email"
                   label="Email"
@@ -119,6 +122,7 @@ function App() {
                   </ValidationMessage>
                 )}
                 <BoxInput
+                  data-testid="boxInput"
                   id="comment"
                   name="comment"
                   rows={5}
@@ -144,7 +148,11 @@ function App() {
         </div>
         {comments.length > 0 && (
           <div className="px-4 pt-4 w-full bg-white border border-gray-200 rounded-md shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-            <Graph graphData={numberOfPeople} categories={categoriesData} />
+            <Graph
+              data-testid="graph"
+              graphData={numberOfPeople}
+              categories={categoriesData}
+            />
           </div>
         )}
       </div>
